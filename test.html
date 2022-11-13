@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <button id="sendBtn">发送信息</button>
+    </body>
+
+</html>
+
+<!-- <script src="./servers/node_modules/sc"></script> -->
+<script type="module">
+    import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+    // var socket = io("ws://127.0.0.1:3000",{});
+    var socket = io("ws://menhechuanghb.com:3000/",{});
+    document.querySelector("#sendBtn").addEventListener("click",function (e) {
+        e.preventDefault();
+        socket.emit('web-send-message',"老王来罗");
+    });
+    socket.on("hey",(...args) => { 
+        console.log("网页收到信息-hey:", args);
+    });
+    socket.on("personControl",(args) => { 
+        const type = args.type;
+        const value = args.value;
+        if(type === "rotate"){
+            // 转向
+        }
+        if(type === "yState"){
+            // 转向
+        }
+        console.log("网页收到信息-personControl:", args);
+    });
+</script>
